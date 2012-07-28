@@ -31,24 +31,25 @@ public void colorpicksetup(){
      .setRange(0,255)
      .setPosition(height+floor(height%pixelsize)/2 + 10,50)
      .setSize(width-height-floor(height%pixelsize)/2 - 20,30)
-     .setColorBackground(color(cpred,0,0))
+     .setColorBackground(color(90))
      ;
   cp5.addSlider("cpblue")
      .setRange(0,255)
      .setPosition(height+floor(height%pixelsize)/2 + 10,80)
      .setSize(width-height-floor(height%pixelsize)/2 - 20,30)
-     .setColorBackground(color(0,cpblue,0))
+     .setColorBackground(color(70))
      ;
   cp5.addSlider("cpgreen")
      .setRange(0,255)
      .setPosition(height+floor(height%pixelsize)/2 + 10,110)
      .setSize(width-height-floor(height%pixelsize)/2 - 20,30)
-     .setColorBackground(color(0,0,cpgreen))
+     .setColorBackground(color(50))
      ;  
   cp5.addSlider("cpalpha")
        .setRange(0,255)
        .setPosition(height+floor(height%pixelsize)/2 + 10,140)
        .setSize(width-height-floor(height%pixelsize)/2 - 20,30)
+       .setColorBackground(color(30))
        ;
 }
 
@@ -64,7 +65,7 @@ public void colorpickcol(){
   fill(cpred,cpgreen,cpblue,cpalpha);
   noStroke();
   rectMode(CORNERS);
-  rect(height+floor(height%pixelsize)/2 + 10,170,height+floor(height%pixelsize)/2 + 10 + width-height-floor(height%pixelsize)/2 - 20,200);
+  rect(height+floor(height%pixelsize)/2 + 10,170,height+floor(height%pixelsize)/2 + 10 + width-height-floor(height%pixelsize)/2 - 20,250);
 }
 
 public void grid(){
