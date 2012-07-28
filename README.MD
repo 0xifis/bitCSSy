@@ -1,6 +1,6 @@
 == bitCSSy ==
 
-bitCSSy (bit-se) is  a simple program written on Processing that allows the creation of pixel-art and the converts each pixel to box-shadow CSS and generates HTML and CSS code that you can use to dispaly your pixel-art on your website.
+bitCSSy (bit-se) is  a simple program written on Processing that allows the creation of pixel-art and the converts each pixel to box-shadow CSS and generates HTML and CSS code that you can use to dispaly your pixel-art on your website
 
 == MIT License ==
 
