@@ -23,10 +23,11 @@ public class cssgenerator extends PApplet {
 ControlP5 cp5;
 ColorPicker colp;
 public int pixelsize = 15;
+public int cpred = 100, cpblue = 100, cpgreen = 100, cpalpha = 100;
 
 
 public void setup(){
-  size(900,700);
+  size(880,600);
   background(255);
   gui();
   grid();
@@ -41,11 +42,50 @@ public void gui(){
      .setPosition(height+floor(height%pixelsize)/2 + 10,10)
      .setSize(width-height-floor(height%pixelsize)/2 - 20,30)
      ;
-  colp = cp5.addColorPicker("picker")
-        .setPosition(height+floor(height%pixelsize)/2 + 10 -100,100)
-        .setColorValue(color(255,128,0,255))
-        ;
+  colorpicksetup();
 
+}
+
+public void colorpicksetup(){
+  cp5.addSlider("cpred")
+     .setRange(0,255)
+     .setPosition(height+floor(height%pixelsize)/2 + 10,50)
+     .setSize(width-height-floor(height%pixelsize)/2 - 20,30)
+     .setColorBackground(color(90))
+     ;
+  cp5.addSlider("cpblue")
+     .setRange(0,255)
+     .setPosition(height+floor(height%pixelsize)/2 + 10,80)
+     .setSize(width-height-floor(height%pixelsize)/2 - 20,30)
+     .setColorBackground(color(70))
+     ;
+  cp5.addSlider("cpgreen")
+     .setRange(0,255)
+     .setPosition(height+floor(height%pixelsize)/2 + 10,110)
+     .setSize(width-height-floor(height%pixelsize)/2 - 20,30)
+     .setColorBackground(color(50))
+     ;  
+  cp5.addSlider("cpalpha")
+       .setRange(0,255)
+       .setPosition(height+floor(height%pixelsize)/2 + 10,140)
+       .setSize(width-height-floor(height%pixelsize)/2 - 20,30)
+       .setColorBackground(color(30))
+       ;
+}
+
+public void colorpickcol(){
+  cp5.getController("cpred").setColorForeground(color(cpred,0,0));
+  cp5.getController("cpred").setColorActive(color(cpred,0,0));
+  cp5.getController("cpblue").setColorForeground(color(0,0,cpblue));
+  cp5.getController("cpblue").setColorActive(color(0,0,cpblue));
+  cp5.getController("cpgreen").setColorForeground(color(0,cpgreen,0));
+  cp5.getController("cpgreen").setColorActive(color(0,cpgreen,0));
+  cp5.getController("cpalpha").setColorForeground(color(0,0,0,cpalpha));
+  cp5.getController("cpalpha").setColorActive(color(0,0,0,cpalpha));
+  fill(cpred,cpgreen,cpblue,cpalpha);
+  noStroke();
+  rectMode(CORNERS);
+  rect(height+floor(height%pixelsize)/2 + 10,170,height+floor(height%pixelsize)/2 + 10 + width-height-floor(height%pixelsize)/2 - 20,250);
 }
 
 public void grid(){
@@ -71,7 +111,7 @@ public void colorsqr(){
     int x = mouseX - ((mouseX - floor((height%pixelsize)/2))%pixelsize);
     int y = mouseY - ((mouseY - floor((height%pixelsize)/2))%pixelsize);
     rectMode(CORNERS);
-    fill(colp.getColorValue());
+    fill(cpred,cpgreen,cpblue,cpalpha);
     noStroke();
     rect(x,y,x+pixelsize,y+pixelsize);
     print(y + ", ");
@@ -80,13 +120,18 @@ public void colorsqr(){
 }
 
 public void draw(){
+  colorpickcol();
 
 }
 
 public void mouseClicked(){
   colorsqr();
-
 }
+
+public void mouseDragged(){
+  colorsqr();
+}
+
   
   static public void main(String args[]) {
     PApplet.main(new String[] { "--bgcolor=#F0F0F0", "cssgenerator" });
