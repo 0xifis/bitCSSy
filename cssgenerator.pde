@@ -86,6 +86,8 @@ public void colorpickcol(){
 public void grid(){
   //clear screen
   background(255);
+  rectMode(CORNERS);
+  rect(0,0,width,height);
   int widthx = height - floor((height%pixelsize)/2);
   int heightx = height - floor((height%pixelsize)/2);
   
@@ -117,15 +119,58 @@ public void colorsqr(){
   }
 }
 
+public String formatstr(String ufstr, String delim){
+  String[] fstr = split(ufstr, delim);
+  if(fstr.length == 5){
+    fstr[1] = "ffffff";
+  }
+  println(fstr.length);
+  for(int i = 0;i<fstr.length;i++){
+  println(fstr[i]);
+  }
+  return(fstr[1]);
+} 
+
+public String colnullcheck(String chcol){
+  if(chcol == "" || chcol == null){
+    chcol = "ffffff";
+  }
+  return(chcol);
+}
+
+public String comorsemicol(int i){
+  if(i != pixnum){
+    return(",");
+  }
+  else{
+    return(";");
+  }
+}
+
 void generate(){
   cssfile = createWriter("avatar"+filenum+".css");
   cssfile.println(".avatar"+filenum+" {");
-  cssfile.println("height: "+pixelsize+"px;");
-  cssfile.println("width: "+pixelsize+"px;");
-  cssfile.println("box-shadow:")
+  cssfile.println("    height: "+pixelsize+"px;");
+  cssfile.println("    width: "+pixelsize+"px;");
+  cssfile.println("    box-shadow:");
+  int bposx = floor((height%pixelsize)/2) + 2;
+  int bposy = bposx;
+  int j = 1;
   for(int i = 1;i<=pixnum;i++){
+    int posx = bposx + ((i-1)%pixnumx)*pixelsize;
+    int posy = bposy + ((j-1)%pixnumy)*pixelsize;
+    cssfile.println("        "+(posx-bposx)+"px "+(posy-bposy)+"px"+" 0 "+"#"+formatstr(hex(get(posx,posy)),"FF")+comorsemicol(i));
+ //   println(colnullcheck(formatstr(hex(get(posx,posy)),"FF"))+" , "+posx+" , "+posy);
+    if(i%pixelsize==(pixelsize-1)){
+      j++;
+    }
+      
   }
   cssfile.println("}");
+  cssfile.flush();
+  cssfile.close();
+  println("generated avatar"+(filenum)+".css");
+  filenum++;
     
   
 }
@@ -141,6 +186,12 @@ void mouseClicked(){
 
 void mouseDragged(){
   colorsqr();
+}
+
+void keyPressed(){
+  if(key=='s'||key=='S'){
+    generate();
+  }
 }
 
   
