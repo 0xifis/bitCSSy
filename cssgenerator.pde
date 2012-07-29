@@ -22,6 +22,7 @@ public void gui(){
      .setRange(1,30)
      .setPosition(height+floor(height%pixelsize)/2 + 10,10)
      .setSize(width-height-floor(height%pixelsize)/2 - 20,30)
+     .lock()
      ;
   colorpicksetup();
 //  toolssetup();
@@ -34,6 +35,7 @@ public void toolssetup(){
      .setSize(280, 40)
      .setTriggerEvent(Bang.RELEASE)
      .setLabel("eraser")
+     .lock()
      ;
 }
 
@@ -47,24 +49,28 @@ public void colorpicksetup(){
      .setPosition(height+floor(height%pixelsize)/2 + 10,50)
      .setSize(width-height-floor(height%pixelsize)/2 - 20,30)
      .setColorBackground(color(90))
+     .lock()
      ;
   cp5.addSlider("cpblue")
      .setRange(0,255)
      .setPosition(height+floor(height%pixelsize)/2 + 10,80)
      .setSize(width-height-floor(height%pixelsize)/2 - 20,30)
      .setColorBackground(color(70))
+     .lock()
      ;
   cp5.addSlider("cpgreen")
      .setRange(0,255)
      .setPosition(height+floor(height%pixelsize)/2 + 10,110)
      .setSize(width-height-floor(height%pixelsize)/2 - 20,30)
      .setColorBackground(color(50))
+     .lock()
      ;  
   cp5.addSlider("cpalpha")
        .setRange(0,255)
        .setPosition(height+floor(height%pixelsize)/2 + 10,140)
        .setSize(width-height-floor(height%pixelsize)/2 - 20,30)
        .setColorBackground(color(30))
+       .lock()
        ;
 }
 
@@ -128,7 +134,7 @@ public String formatstr(String ufstr, String delim){
   for(int i = 0;i<fstr.length;i++){
   println(fstr[i]);
   }
-  return(fstr[1]);
+  return("#"+fstr[1]);
 } 
 
 public String colnullcheck(String chcol){
@@ -159,9 +165,9 @@ void generate(){
   for(int i = 1;i<=pixnum;i++){
     int posx = bposx + ((i-1)%pixnumx)*pixelsize;
     int posy = bposy + ((j-1)%pixnumy)*pixelsize;
-    cssfile.println("        "+(posx-bposx)+"px "+(posy-bposy)+"px"+" 0 "+"#"+formatstr(hex(get(posx,posy)),"FF")+comorsemicol(i));
- //   println(colnullcheck(formatstr(hex(get(posx,posy)),"FF"))+" , "+posx+" , "+posy);
-    if(i%pixelsize==(pixelsize-1)){
+    cssfile.println("        "+(posx-bposx)+"px "+(posy-bposy)+"px"+" 0 "+formatstr(hex(get(posx,posy)),"FF")+comorsemicol(i));
+    println(colnullcheck(formatstr(hex(get(posx,posy)),"FF"))+" , "+posx+" , "+posy);
+    if(i%pixnumx==(pixnumx-1)){
       j++;
     }
       
