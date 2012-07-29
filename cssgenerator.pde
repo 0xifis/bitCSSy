@@ -1,8 +1,9 @@
 import controlP5.*;
 
+PrintWriter cssfile;
+int filenum = 1;
 ControlP5 cp5;
-ColorPicker colp;
-public int pixelsize = 15;
+public int pixelsize = 30, pixnumx = -1, pixnumy = -1, pixnum = 0;
 public int cpred = 100, cpblue = 100, cpgreen = 100, cpalpha = 100;
 
 
@@ -23,7 +24,21 @@ public void gui(){
      .setSize(width-height-floor(height%pixelsize)/2 - 20,30)
      ;
   colorpicksetup();
+//  toolssetup();
 
+}
+
+public void toolssetup(){
+    cp5.addBang("eraser")
+     .setPosition(40, 300)
+     .setSize(280, 40)
+     .setTriggerEvent(Bang.RELEASE)
+     .setLabel("eraser")
+     ;
+}
+
+public void eraser(){
+  cpred=cpblue=cpgreen=cpalpha=255;
 }
 
 public void colorpicksetup(){
@@ -77,13 +92,16 @@ public void grid(){
    //vertical-lines
   for(int i = floor((height%pixelsize)/2);i<=widthx;i+=pixelsize){
     line(i,floor((height%pixelsize)/2),i,height - floor(height%pixelsize)/2);
+    pixnumx++;
   }
   
   //horizontal-lines
   for(int i = floor((height%pixelsize)/2);i<=heightx;i+=pixelsize){
     line(floor((height%pixelsize)/2),i,widthx,i);
+    pixnumy++;
   }
-  
+  pixnum = pixnumx*pixnumy;
+  println(pixnum);
 }
 
 public void colorsqr(){
@@ -97,6 +115,19 @@ public void colorsqr(){
     print(y + ", ");
     println(x);
   }
+}
+
+void generate(){
+  cssfile = createWriter("avatar"+filenum+".css");
+  cssfile.println(".avatar"+filenum+" {");
+  cssfile.println("height: "+pixelsize+"px;");
+  cssfile.println("width: "+pixelsize+"px;");
+  cssfile.println("box-shadow:")
+  for(int i = 1;i<=pixnum;i++){
+  }
+  cssfile.println("}");
+    
+  
 }
 
 void draw(){
